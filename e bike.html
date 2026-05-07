@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltRide E-Bike Rentals</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+    .font-mono { font-family: 'Space Mono', monospace; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(0,255,136,0.3)} 50%{box-shadow:0 0 40px rgba(0,255,136,0.6)} }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    .glow { animation: pulse-glow 3s ease-in-out infinite; }
+    .bike-card:hover { transform: translateY(-8px) scale(1.02); }
+    .bike-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .gradient-text { background: linear-gradient(135deg, #00ff88, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto bg-gray-950 text-white font-outfit"><!-- Nav -->
+   <nav class="fixed top-0 w-full z-50 backdrop-blur-xl bg-gray-950/80 border-b border-gray-800/50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-2"><i data-lucide="zap" class="w-7 h-7 text-emerald-400"></i> <span class="text-xl font-bold tracking-tight">Volt<span class="text-emerald-400">Ride</span></span>
+     </div>
+     <div class="hidden md:flex items-center gap-8 text-sm text-gray-300"><a href="#bikes" class="hover:text-emerald-400 transition">Bikes</a> <a href="#pricing" class="hover:text-emerald-400 transition">Pricing</a> <a href="#how" class="hover:text-emerald-400 transition">How It Works</a> <a href="#contact" class="hover:text-emerald-400 transition">Contact</a>
+     </div><button id="mobile-menu-btn" class="md:hidden text-gray-300"><i data-lucide="menu" class="w-6 h-6"></i></button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3 text-sm text-gray-300"><a href="#bikes" class="block hover:text-emerald-400">Bikes</a> <a href="#pricing" class="block hover:text-emerald-400">Pricing</a> <a href="#how" class="block hover:text-emerald-400">How It Works</a> <a href="#contact" class="block hover:text-emerald-400">Contact</a>
+    </div>
+   </nav><!-- Hero -->
+   <section class="relative min-h-[90%] flex items-center justify-center px-6 pt-24 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-gray-950 to-cyan-900/20"></div>
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="relative z-10 text-center max-w-4xl">
+     <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-mono tracking-wider">
+      ⚡ ZERO EMISSIONS • FULL FREEDOM
+     </div>
+     <h1 id="hero-title" class="text-5xl md:text-7xl font-800 leading-tight mb-6">Ride Electric.<br><span class="gradient-text">Ride Free.</span></h1>
+     <p id="hero-subtitle" class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">Premium e-bike rentals for city explorers. Unlock, ride, and return — no hassle, no gas, no limits.</p><a href="#bikes" id="cta-button" class="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-semibold rounded-full transition glow"> <i data-lucide="bike" class="w-5 h-5"></i> <span id="cta-text">Browse Bikes</span> </a>
+    </div><!-- Floating bike SVG -->
+    <div class="absolute bottom-10 right-10 opacity-20 float-anim hidden lg:block">
+     <svg width="200" height="120" viewbox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="2" class="text-emerald-400"><circle cx="45" cy="85" r="30" /><circle cx="155" cy="85" r="30" /> <path d="M45 85 L80 35 L120 35 M80 35 L100 85 L155 85 M120 35 L155 85 M100 85 L120 35" /> <circle cx="100" cy="35" r="5" fill="currentColor" />
+     </svg>
+    </div>
+   </section><!-- Bikes Section -->
+   <section id="bikes" class="px-6 py-24 max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+     <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Fleet</h2>
+     <p class="text-gray-400">Choose your perfect ride</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+     <div class="bike-card bg-gray-900/80 border border-gray-800 rounded-2xl p-8 cursor-pointer">
+      <div class="w-full h-48 bg-gradient-to-br from-emerald-900/40 to-gray-900 rounded-xl flex items-center justify-center mb-6">
+       <svg width="120" height="80" viewbox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="2.5" class="text-emerald-400">
+        <circle cx="45" cy="85" r="28" /><circle cx="155" cy="85" r="28" /><path d="M45 85 L80 40 L120 40 M80 40 L100 85 L155 85 M120 40 L155 85" /><rect x="85" y="28" width="20" height="8" rx="2" fill="currentColor" opacity="0.5" />
+       </svg>
+      </div><span class="text-xs font-mono text-emerald-400 tracking-wider">CITY CRUISER</span>
+      <h3 class="text-xl font-bold mt-2 mb-2">Urban Glide</h3>
+      <p class="text-gray-400 text-sm mb-4">Perfect for commutes. 60km range, lightweight frame, integrated lights.</p>
+      <div class="flex items-baseline gap-1">
+       <span class="text-2xl font-bold text-emerald-400">$12</span><span class="text-gray-500 text-sm">/hour</span>
+      </div>
+     </div>
+     <div class="bike-card bg-gray-900/80 border border-emerald-500/30 rounded-2xl p-8 cursor-pointer relative">
+      <div class="absolute top-4 right-4 px-2 py-0.5 bg-emerald-500 text-gray-950 text-xs font-bold rounded-full">
+       POPULAR
+      </div>
+      <div class="w-full h-48 bg-gradient-to-br from-cyan-900/40 to-gray-900 rounded-xl flex items-center justify-center mb-6">
+       <svg width="120" height="80" viewbox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="2.5" class="text-cyan-400">
+        <circle cx="45" cy="85" r="28" /><circle cx="155" cy="85" r="28" /><path d="M45 85 L75 35 L125 35 M75 35 L100 85 L155 85 M125 35 L155 85" /><path d="M70 30 L130 30" stroke-width="4" stroke-linecap="round" />
+       </svg>
+      </div><span class="text-xs font-mono text-cyan-400 tracking-wider">ALL-TERRAIN</span>
+      <h3 class="text-xl font-bold mt-2 mb-2">Trail Volt</h3>
+      <p class="text-gray-400 text-sm mb-4">Conquer any terrain. 80km range, suspension fork, fat tires.</p>
+      <div class="flex items-baseline gap-1">
+       <span class="text-2xl font-bold text-cyan-400">$18</span><span class="text-gray-500 text-sm">/hour</span>
+      </div>
+     </div>
+     <div class="bike-card bg-gray-900/80 border border-gray-800 rounded-2xl p-8 cursor-pointer">
+      <div class="w-full h-48 bg-gradient-to-br from-purple-900/40 to-gray-900 rounded-xl flex items-center justify-center mb-6">
+       <svg width="120" height="80" viewbox="0 0 200 120" fill="none" stroke="currentColor" stroke-width="2.5" class="text-purple-400">
+        <circle cx="45" cy="85" r="28" /><circle cx="155" cy="85" r="28" /><path d="M45 85 L85 30 L115 30 M85 30 L100 85 L155 85 M115 30 L155 85" /><path d="M78 25 Q100 10 122 25" stroke-width="3" />
+       </svg>
+      </div><span class="text-xs font-mono text-purple-400 tracking-wider">SPEED DEMON</span>
+      <h3 class="text-xl font-bold mt-2 mb-2">Hyper Sprint</h3>
+      <p class="text-gray-400 text-sm mb-4">Built for speed. 100km range, carbon frame, 45km/h top speed.</p>
+      <div class="flex items-baseline gap-1">
+       <span class="text-2xl font-bold text-purple-400">$25</span><span class="text-gray-500 text-sm">/hour</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- How It Works -->
+   <section id="how" class="px-6 py-24 bg-gray-900/50">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+      <p class="text-gray-400">Three steps to freedom</p>
+     </div>
+     <div class="grid md:grid-cols-3 gap-12">
+      <div class="text-center">
+       <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center"><i data-lucide="smartphone" class="w-7 h-7 text-emerald-400"></i>
+       </div>
+       <div class="font-mono text-emerald-400 text-sm mb-2">
+        01
+       </div>
+       <h3 class="text-lg font-bold mb-2">Find &amp; Book</h3>
+       <p class="text-gray-400 text-sm">Locate the nearest e-bike on the map and reserve it instantly.</p>
+      </div>
+      <div class="text-center">
+       <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center"><i data-lucide="scan" class="w-7 h-7 text-cyan-400"></i>
+       </div>
+       <div class="font-mono text-cyan-400 text-sm mb-2">
+        02
+       </div>
+       <h3 class="text-lg font-bold mb-2">Scan &amp; Unlock</h3>
+       <p class="text-gray-400 text-sm">Scan the QR code on the bike to unlock it and start your ride.</p>
+      </div>
+      <div class="text-center">
+       <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center"><i data-lucide="map-pin" class="w-7 h-7 text-purple-400"></i>
+       </div>
+       <div class="font-mono text-purple-400 text-sm mb-2">
+        03
+       </div>
+       <h3 class="text-lg font-bold mb-2">Ride &amp; Return</h3>
+       <p class="text-gray-400 text-sm">Enjoy your ride and drop off at any designated station.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Pricing -->
+   <section id="pricing" class="px-6 py-24 max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+     <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple Pricing</h2>
+     <p class="text-gray-400">No hidden fees, ever</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+     <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-8 text-center">
+      <h3 class="font-mono text-sm text-gray-400 mb-4">PAY AS YOU GO</h3>
+      <div class="text-4xl font-bold mb-2">
+       $0.25<span class="text-lg text-gray-500">/min</span>
+      </div>
+      <p class="text-gray-500 text-sm mb-6">No commitment</p>
+      <ul class="text-sm text-gray-400 space-y-2 text-left">
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Unlock any bike</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Pay only for ride time</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Free helmet included</li>
+      </ul>
+     </div>
+     <div class="bg-gray-900/80 border border-emerald-500/40 rounded-2xl p-8 text-center relative">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-emerald-500 text-gray-950 text-xs font-bold rounded-full">
+       BEST VALUE
+      </div>
+      <h3 class="font-mono text-sm text-emerald-400 mb-4">DAILY PASS</h3>
+      <div class="text-4xl font-bold mb-2">
+       $29<span class="text-lg text-gray-500">/day</span>
+      </div>
+      <p class="text-gray-500 text-sm mb-6">Unlimited rides</p>
+      <ul class="text-sm text-gray-400 space-y-2 text-left">
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Unlimited unlocks</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> All bike types</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Priority support</li>
+      </ul>
+     </div>
+     <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-8 text-center">
+      <h3 class="font-mono text-sm text-gray-400 mb-4">MONTHLY</h3>
+      <div class="text-4xl font-bold mb-2">
+       $99<span class="text-lg text-gray-500">/mo</span>
+      </div>
+      <p class="text-gray-500 text-sm mb-6">For daily riders</p>
+      <ul class="text-sm text-gray-400 space-y-2 text-left">
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Everything in Daily</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Reserved parking</li>
+       <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Free maintenance</li>
+      </ul>
+     </div>
+    </div>
+   </section><!-- Contact -->
+   <section id="contact" class="px-6 py-24 bg-gray-900/50">
+    <div class="max-w-xl mx-auto text-center">
+     <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+     <p class="text-gray-400 mb-10">Questions? We'd love to hear from you.</p>
+     <form id="contact-form" class="space-y-4 text-left">
+      <div><label for="name" class="text-sm text-gray-400 mb-1 block">Name</label> <input id="name" type="text" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-emerald-500 transition" placeholder="Your name">
+      </div>
+      <div><label for="email" class="text-sm text-gray-400 mb-1 block">Email</label> <input id="email" type="email" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-emerald-500 transition" placeholder="you@email.com">
+      </div>
+      <div><label for="message" class="text-sm text-gray-400 mb-1 block">Message</label> <textarea id="message" rows="4" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-emerald-500 transition resize-none" placeholder="How can we help?"></textarea>
+      </div><button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-gray-950 font-semibold rounded-xl transition flex items-center justify-center gap-2"> <i data-lucide="send" class="w-4 h-4"></i> Send Message </button>
+      <div id="form-success" class="hidden text-center py-3 text-emerald-400 font-medium">
+       ✓ Message sent! We'll get back to you soon.
+      </div>
+     </form>
+    </div>
+   </section><!-- Footer -->
+   <footer class="px-6 py-12 border-t border-gray-800/50">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+     <div class="flex items-center gap-2"><i data-lucide="zap" class="w-5 h-5 text-emerald-400"></i> <span class="font-bold">VoltRide</span>
+     </div>
+     <p class="text-gray-500 text-sm">© 2024 VoltRide. Ride electric, ride free.</p>
+     <div class="flex gap-4"><a href="#" class="text-gray-500 hover:text-emerald-400 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a> <a href="#" class="text-gray-500 hover:text-emerald-400 transition"><i data-lucide="twitter" class="w-5 h-5"></i></a> <a href="#" class="text-gray-500 hover:text-emerald-400 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+  const defaultConfig = {
+    hero_title: 'Ride Electric.<br><span class="gradient-text">Ride Free.</span>',
+    hero_subtitle: 'Premium e-bike rentals for city explorers. Unlock, ride, and return — no hassle, no gas, no limits.',
+    cta_button_text: 'Browse Bikes',
+    background_color: '#030712',
+    surface_color: '#111827',
+    text_color: '#ffffff',
+    primary_action_color: '#10b981',
+    secondary_action_color: '#06b6d4',
+    font_family: 'Outfit',
+    font_size: 16
+  };
+
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      document.getElementById('hero-title').innerHTML = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      document.getElementById('cta-text').textContent = config.cta_button_text || defaultConfig.cta_button_text;
+
+      const font = config.font_family || defaultConfig.font_family;
+      document.getElementById('app').style.fontFamily = `${font}, sans-serif`;
+
+      const size = config.font_size || defaultConfig.font_size;
+      document.getElementById('app').style.fontSize = `${size}px`;
+
+      const bg = config.background_color || defaultConfig.background_color;
+      const surface = config.surface_color || defaultConfig.surface_color;
+      const text = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action_color || defaultConfig.primary_action_color;
+
+      document.getElementById('app').style.backgroundColor = bg;
+      document.getElementById('app').style.color = text;
+    },
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+      fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_title', config.hero_title || defaultConfig.hero_title],
+      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['cta_button_text', config.cta_button_text || defaultConfig.cta_button_text]
+    ])
+  });
+
+  // Mobile menu
+  document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+
+  // Contact form
+  document.getElementById('contact-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    document.getElementById('form-success').classList.remove('hidden');
+    e.target.reset();
+    setTimeout(() => document.getElementById('form-success').classList.add('hidden'), 4000);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('mobile-menu').classList.add('hidden');
+    });
+  });
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f81fa3644df3fde',t:'MTc3ODE3NTI4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
